@@ -10,12 +10,12 @@ Public Class MultAddGame
         AppName = "Mult-Add Game"
     End Sub
 
-    Friend Structure MultAddQuest
+    Friend NotInheritable Class MultAddQuest
         ReadOnly a As Integer, b As Integer, c As Integer, sign As Char
         Friend Property Result As Single
         Friend Property HasAddend As Boolean
 
-        Public Sub New(hasAddend As Boolean)
+        Public Sub New(Optional hasAddend As Boolean = False)
             Dim rnd As New Random
             sign = If(rnd.NextDouble() > 0.5, "+"c, "-"c)
             Do
@@ -33,13 +33,16 @@ Public Class MultAddGame
                 Return .ToString()
             End With
         End Function
-    End Structure
+    End Class
 
     Friend Property UserInput As New Text.StringBuilder
+    Private score As Integer = 0
+    Private quest As New MultAddQuest
+    Private sw As New Stopwatch
+    Private prevAnswer As String
+    Private prevQuest As String
 
     Protected Overrides Function OnUserUpdate(elapsedTime As Single) As Boolean
-        Static score As New Integer, quest As New MultAddQuest(False), sw As New Stopwatch
-        Static prevAnswer As String = String.Empty, prevQuest As String = String.Empty
         FillRect(New Vi2d, New Vi2d(ScreenWidth, ScreenHeight), Presets.Black)
         DrawString(New Vi2d, "Press ESC to exit anytime.", Presets.Gray)
         DrawString(New Vi2d(0, 25), $"SCORE: {score}", Presets.Apricot, 2)
@@ -83,7 +86,7 @@ Public Class MultAddGame
         Return Not GetKey(Key.ESCAPE).Pressed
     End Function
 
-    Public Shared Sub Main()
+    Friend Shared Sub Main()
         With New MultAddGame
             If .Construct(500, 300, True) Then .Start()
         End With

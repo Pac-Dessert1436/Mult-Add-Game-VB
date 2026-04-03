@@ -1,4 +1,6 @@
-# Mult-Add Game: The Game of Multiplication and Addition
+# Mult-Add Game: The Game of Multiplication and Addition, Built in VB.NET
+
+> **Important Note**: This project is now upgraded to [.NET SDK 10.0](https://dotnet.microsoft.com/download/dotnet/10.0) with internal code cleanup, but core content remains unchanged.
 
 ## About the Game
 
